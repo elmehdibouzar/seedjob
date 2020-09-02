@@ -5,8 +5,8 @@ def call(boolean dev = false, def body) {
     baseTalendTemplate(workingDir,  dev) {
         stage("SOFA configuration") {
             container('build') {
-                sh "git config --global user.name SOFA"
-                sh "git config --global user.email service.bsc-sofa@socgen.com"
+                sh "git config --global user.name elmehdi"
+                sh "git config --global user.email mehdi.bouzar@gmail.com"
             }
         }
 
