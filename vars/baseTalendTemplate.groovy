@@ -10,10 +10,10 @@ def call(String workingDir = "/tmp", boolean dev = false, def body) {
                     secretEnvVar(key: 'NEXUS_V2_USERNAME', secretName: 'maven-secret', secretKey: 'NEXUS_V2_USERNAME')
             ])
 
-#    def mavenVolume = persistentVolumeClaim(claimName: 'maven-repository-2', mountPath: '')
-#    def talendlib = persistentVolumeClaim(claimName: 'talend-lib', mountPath: '/sofa/talend-lib')
+//   def mavenVolume = persistentVolumeClaim(claimName: 'maven-repository-2', mountPath: '')
+//   def talendlib = persistentVolumeClaim(claimName: 'talend-lib', mountPath: '/sofa/talend-lib')
 
-    baseTemplate(true, workingDir, [talendContainerTemplate], [talendlib,mavenVolume]) {
+    baseTemplate(true, workingDir, [talendContainerTemplate]) {
         body()
     }
 }
