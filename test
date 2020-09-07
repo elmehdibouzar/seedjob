@@ -1,0 +1,37 @@
+String workingDir = "/tmp"
+String pipelineKey = "jenkins-${new Random().nextInt(1000000000)}"
+
+podTemplate(label: pipelineKey,
+        containers: [
+                containerTemplate(name: 'jnlp',
+                        image: "docker-registry.default.svc:5000/bsc-dpt-a2742-global/openshift-jenkins-slave-base-rhel7:latest",
+                        args: '-disableHttpsCertValidation ${computer.jnlpmac} ${computer.name}',
+                        workingDir: workingDir,
+                        alwaysPullImage: false),
+
+                containerTemplate(name: 'oc',
+                        image: 'docker-registry.default.svc:5000/bsc-dpt-a2742-global/ose-cli:v3.10',
+                        command: 'cat',
+                        ttyEnabled: true,
+                        workingDir: workingDir,
+                        alwaysPullImage: true)
+        ]) {
+    node(pipelineKey) {
+        stage("checkout") {
+            // checkout the source code
+            gitCheckout("https://sgithub.fr.world.socgen/SOFA/openshift-hadoop.git", "master")
+        }
+
+        stage('Openshift connection') {
+            container('oc') {
+                ocpLogin("bsc-dpt-a2742-global")
+            }
+        }
+
+        stage('Image build') {
+            container('oc') {
+                ocpBuild("sofa-build-hadoop-prod")
+            }
+        }
+    }
+}
