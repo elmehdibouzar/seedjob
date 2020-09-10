@@ -13,7 +13,7 @@ def call(String workingDir = "/tmp", boolean dev = false, def body) {
 //   def mavenVolume = persistentVolumeClaim(claimName: 'maven-repository-2', mountPath: '')
 //   def talendlib = persistentVolumeClaim(claimName: 'talend-lib', mountPath: '/sofa/talend-lib')
 
-    baseTemplate(true, workingDir, [talendContainerTemplate]) {
+    Templatebase(true, workingDir, [talendContainerTemplate]) {
         body()
     }
 }
