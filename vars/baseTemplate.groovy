@@ -1,7 +1,7 @@
 def call(boolean withNodeCreation = true, String workingDir = "/tmp", def additionalContainers = [], def volumes = [], def body) {
 
     def jnlpContainerTemplate = containerTemplate(name: 'jnlp',
-            image: 'image-registry.openshift-image-registry.svc:5000/test/dockerfile-rhel-7:latest',
+            image: 'image-registry.openshift-image-registry.svc:5000/test/dockerfile-rhel-7',
             args: '-disableHttpsCertValidation ${computer.jnlpmac} ${computer.name}',
             workingDir: workingDir,
             alwaysPullImage: false)
