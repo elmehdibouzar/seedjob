@@ -1,7 +1,7 @@
 def call(String workingDir = "/tmp", boolean dev = false, def body) {
 
     def talendContainerTemplate = containerTemplate(name: 'build',
-            image: "image-registry.openshift-image-registry.svc:5000/test/openjdk-8",
+            image: "image-registry.openshift-image-registry.svc:5000/test/openjdk8-maven",
             command: 'cat',
             ttyEnabled: true,
             workingDir: workingDir,
